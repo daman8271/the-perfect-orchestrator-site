@@ -1,0 +1,7 @@
+# The Perfect Orchestrator — landing page
+# Canonical host (single place to change): https://the-perfect-orchestrator.vercel.app
+
+User-agent: *
+Allow: /
+
+Sitemap: https://the-perfect-orchestrator.vercel.app/sitemap.xml
