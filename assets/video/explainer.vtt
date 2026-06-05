@@ -1,4 +1,29 @@
 WEBVTT
 
-00:00.000 --> 00:08.000
-One captain. A fleet of coders. And nobody's report goes unchecked.
+1
+00:00:00.700 --> 00:00:03.512
+You've run agent swarms before. They all say done.
+
+2
+00:00:04.657 --> 00:00:10.982
+The Perfect Orchestrator is different. One lead session commands a fleet of real Claude Code workers in tmux.
+
+3
+00:00:11.892 --> 00:00:16.667
+It writes each worker a brief. Watches them work. Nudges the ones that drift.
+
+4
+00:00:17.580 --> 00:00:22.930
+Workers coordinate on a file bus. No servers. No daemons. No magic.
+
+5
+00:00:23.844 --> 00:00:29.019
+And before anything reaches you — a different worker tries to tear each result apart.
+
+6
+00:00:30.140 --> 00:00:31.790
+What survives is what ships.
+
+7
+00:00:32.921 --> 00:00:38.270
+The Perfect Orchestrator. One prompt. A fleet of workers. Every result verified.
