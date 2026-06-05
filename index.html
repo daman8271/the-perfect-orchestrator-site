@@ -25,7 +25,7 @@
   <link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/main.js" defer></script>
@@ -59,9 +59,9 @@
         <video class="hero-video" muted loop playsinline preload="none" poster="assets/hero-poster.jpg" data-video-lazy data-src="assets/video/hero-loop.mp4"></video>
       </div>
       <div class="wrap hero-content">
-        <p class="overline typed">$ MADE FOR VIBE CODERS<span class="caret" aria-hidden="true"></span></p>
-        <h1 class="reveal">Command a fleet of Claude coders. <span class="h1-accent">Trust none of them.</span></h1>
-        <p class="lead reveal">The Perfect Orchestrator turns one Claude Code session into the commander of N autonomous tmux workers — and every result gets adversarially verified by a different worker before it reaches you.</p>
+        <p class="overline typed">$ CLI FLEET ORCHESTRATOR FOR CLAUDE CODE<span class="caret" aria-hidden="true"></span></p>
+        <h1 class="reveal">Command a fleet of Claude coders. <span class="h1-accent">Every result, verified.</span></h1>
+        <p class="lead reveal">The Perfect Orchestrator turns one Claude Code session into the commander of N autonomous tmux workers. Every result gets adversarially verified by a different worker before it reaches you.</p>
         <div class="cta-row reveal">
           <div class="cmd-copy">
             <code>git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator &amp;&amp; ./install.sh</code>
@@ -91,7 +91,7 @@
           <div class="prose reveal">
             <p>You fan out six agents and walk away. Twenty minutes later: six green checkmarks. Done, done, done — every one of them confident.</p>
             <p>Then you look closer. One rubber-stamped your assumption instead of testing it. One declared victory on code it never ran. One reported &ldquo;all tests pass&rdquo; for a suite that exited before it started.</p>
-            <p>The more agents you run, the less of their work you can personally check. Autonomy without verification isn&rsquo;t speed — it&rsquo;s noise.</p>
+            <p>The more agents you run, the less of their work you can personally check. Autonomy without verification isn&rsquo;t speed. It&rsquo;s noise.</p>
           </div>
           <div class="reveal">
             <div class="terminal">
@@ -105,7 +105,6 @@
               </div>
             </div>
             <p class="term-caption">real pattern. independent eyes kill false positives.</p>
-            <p class="star-ask">If that just sold you — <a href="https://github.com/daman8271/the-perfect-orchestrator" rel="noopener">a star helps other vibe coders find it</a>.</p>
           </div>
         </div>
       </div>
@@ -122,17 +121,17 @@
           <article class="step">
             <span class="step-num">01</span>
             <h3>SPAWN</h3>
-            <p><code>orch spawn audit 6</code> — six full Claude Code sessions bloom in tmux panes. Real TUIs you can watch, not invisible API calls.</p>
+            <p><code>orch spawn audit 6</code> and six full Claude Code sessions bloom in tmux panes. Real TUIs you can watch, not invisible API calls.</p>
           </article>
           <article class="step">
             <span class="step-num">02</span>
             <h3>COMMAND</h3>
-            <p>The lead writes each worker a brief file, dispatches, then <em>watches</em> — reading panes, nudging the ones that drift. The lead is alive, not a cron job.</p>
+            <p>The lead writes each worker a brief file, dispatches, then <em>watches</em>: reading panes, nudging the ones that drift. The lead is alive, not a cron job.</p>
           </article>
           <article class="step">
             <span class="step-num">03</span>
             <h3>VERIFY</h3>
-            <p>Done-flags drop, results land — and a different worker tries to tear each one apart. Survivors get reported. Liars get caught.</p>
+            <p>Done-flags drop, results land. Then a different worker tries to tear each one apart. Survivors get reported. Liars get caught.</p>
           </article>
         </div>
         <div class="terminal reveal">
@@ -155,7 +154,7 @@
         </div>
         <figure class="media reveal">
           <video muted loop playsinline preload="none" width="1920" height="1080" poster="assets/verify-poster.jpg" data-video-lazy data-src="assets/video/verify-loop.mp4"></video>
-          <figcaption class="media-caption">the verification pass, visualized.</figcaption>
+          <figcaption class="media-caption">a real fleet run is coming to this slot — recorded, not rendered.</figcaption>
         </figure>
       </div>
     </section>
@@ -167,11 +166,12 @@
           <p class="overline">TRUST NOTHING</p>
           <h2>The only fleet where workers audit each other.</h2>
         </header>
-        <p class="lead reveal">We surveyed every public Claude-fleet orchestrator we could find (and Anthropic&rsquo;s experimental Agent Teams). Adversarial result-verification existed in none of them — the closest thing, Agent Teams&rsquo; agent debate, argues during investigation, not over results. It exists here, as the core design rule: <em>findings don&rsquo;t count until a different worker has tried to kill them.</em></p>
+        <p class="lead reveal">We surveyed every public Claude-fleet orchestrator we could find (and Anthropic&rsquo;s experimental Agent Teams). Adversarial result-verification existed in none of them. The closest thing, Agent Teams&rsquo; agent debate, argues during investigation, not over results. It exists here, as the core design rule: <em>findings don&rsquo;t count until a different worker has tried to kill them.</em></p>
+        <p class="stats-frame reveal">We ran this page through its own gauntlet: every claim was extracted, and a hostile panel tried to kill each one.</p>
         <div class="stats reveal-stagger">
           <div class="stat">
             <span class="stat-num" data-count="15">15</span>
-            <span class="stat-label">primary sources</span>
+            <span class="stat-label">sources read</span>
           </div>
           <div class="stat">
             <span class="stat-num" data-count="74">74</span>
@@ -179,20 +179,21 @@
           </div>
           <div class="stat">
             <span class="stat-num" data-count="24">24</span>
-            <span class="stat-label">confirmed by adversarial panels</span>
+            <span class="stat-label">confirmed by hostile panels</span>
           </div>
           <div class="stat">
             <span class="stat-num" data-count="1">1</span>
-            <span class="stat-label">refuted and excluded</span>
+            <span class="stat-label">refuted &amp; deleted</span>
           </div>
         </div>
-        <p class="footnote reveal">the top 25 load-bearing claims went to 3-vote adversarial panels — 24 confirmed, 1 refuted; the rest logged as context.</p>
+        <p class="footnote reveal">the top 25 load-bearing claims went to 3-vote adversarial panels: 24 confirmed, 1 refuted; the rest logged as context.</p>
+        <p class="dogfood-line reveal">this site was designed, written, and shipped by the very fleet it advertises.</p>
         <p class="reveal"><a class="link-mono" href="https://github.com/daman8271/the-perfect-orchestrator/blob/main/docs/LANDSCAPE.md" rel="noopener">read the full landscape survey →</a></p>
         <figure class="media film-slate reveal">
-          <video controls preload="none" width="1920" height="1080" poster="assets/explainer-poster.jpg" aria-label="Explainer video: the captain analogy" data-video-lazy data-src="assets/video/explainer.mp4">
+          <video controls preload="none" width="1920" height="1080" poster="assets/explainer-poster.jpg" aria-label="Explainer video: how the orchestrator works" data-video-lazy data-src="assets/video/explainer.mp4">
             <track kind="captions" srclang="en" label="English" src="assets/video/explainer.vtt" default>
           </video>
-          <figcaption class="media-caption">the captain doesn&rsquo;t sail every ship — sound on. transcript: &ldquo;one captain. a fleet of coders. and nobody&rsquo;s report goes unchecked.&rdquo;</figcaption>
+          <figcaption class="media-caption">how it works, in 30 seconds — sound on.</figcaption>
         </figure>
       </div>
     </section>
@@ -204,16 +205,16 @@
           <p class="overline">THE HARNESS</p>
           <h2>Seven commands. Zero ceremony.</h2>
         </header>
-        <div class="cmd-grid reveal-stagger">
+        <div class="cmd-grid cmd-grid--compact reveal-stagger">
           <div class="cmd-row">
             <code class="cmd-name">orch spawn</code>
             <code class="cmd-args">&lt;session&gt; &lt;N&gt; [workdir]</code>
-            <p class="cmd-desc">Boot a fleet: N tiled Claude Code worker panes plus a shared workspace — bus, briefs, results, done-flags.</p>
+            <p class="cmd-desc">Boot a fleet: N tiled Claude Code worker panes plus a shared workspace of bus, briefs, results, done-flags.</p>
           </div>
           <div class="cmd-row">
             <code class="cmd-name">orch send</code>
             <code class="cmd-args">&lt;session&gt; &lt;n&gt; &lt;msg&gt;</code>
-            <p class="cmd-desc">Type a single-line prompt into worker n. Newline submits — use <code>--file</code> for full briefs.</p>
+            <p class="cmd-desc">Type a single-line prompt into worker n. Newline submits; use <code>--file</code> for full briefs.</p>
           </div>
           <div class="cmd-row">
             <code class="cmd-name">orch read</code>
@@ -223,7 +224,7 @@
           <div class="cmd-row">
             <code class="cmd-name">orch status</code>
             <code class="cmd-args">[session]</code>
-            <p class="cmd-desc">List fleets — or one fleet&rsquo;s panes, done-flags, and bus tail.</p>
+            <p class="cmd-desc">List fleets, or one fleet&rsquo;s panes, done-flags, and bus tail.</p>
           </div>
           <div class="cmd-row">
             <code class="cmd-name">orch kill</code>
@@ -235,12 +236,8 @@
             <code class="cmd-args"></code>
             <p class="cmd-desc">Dependency check plus the allow-rules your lead session needs.</p>
           </div>
-          <div class="cmd-row">
-            <code class="cmd-name">orch worker</code>
-            <code class="cmd-args">&lt;workdir&gt;</code>
-            <p class="cmd-desc">(internal) Runs one worker — what every tmux pane actually executes.</p>
-          </div>
         </div>
+        <p class="footnote reveal">(+ <code>orch worker</code> — internal: what spawn runs inside each pane)</p>
       </div>
     </section>
 
@@ -250,7 +247,7 @@
         <header class="reveal">
           <p class="overline">LEARNED IN PRODUCTION</p>
           <h2>Patterns with scar tissue.</h2>
-          <p class="lead">These came from running real fleets on real revenue work — multi-platform price-intelligence ops, cross-module sweeps — not from demos.</p>
+          <p class="lead">This page practices it: a 4-worker fleet built v1 in one evening. An 8-agent panel then filed 38 findings, each adversarially verified before a fix shipped. The launch survey tested 25 claims; 24 confirmed, 1 refuted and deleted.</p>
         </header>
         <div class="cards reveal-stagger">
           <article class="pattern-card">
@@ -274,6 +271,15 @@
             <p>For high stakes: round one audits, round two adversarially refutes, round three confirms the survivors.</p>
           </article>
         </div>
+        <aside class="security-strip reveal" aria-label="Security model summary">
+          <p class="overline">BLAST RADIUS</p>
+          <ul class="security-points">
+            <li><code>rm</code> is not allowlisted — destructive deletes still need approval</li>
+            <li>workers get an isolated config dir — your hooks and history untouched</li>
+            <li>workers never push — the lead reviews every commit</li>
+          </ul>
+          <p class="footnote"><a class="link-mono" href="https://github.com/daman8271/the-perfect-orchestrator/blob/main/SECURITY.md" rel="noopener">full security model →</a></p>
+        </aside>
       </div>
     </section>
 
@@ -366,9 +372,9 @@
         <h2 class="sr-only">Made for vibe coders</h2>
         <p class="overline">$ whoami</p>
         <div class="manifesto reveal-stagger">
-          <p class="m-line">You don&rsquo;t write every line anymore.</p>
-          <p class="m-line">You command the ones who do.</p>
-          <p class="m-line">Your terminal is a bridge, not a desk.</p>
+          <p class="m-line">You don&rsquo;t babysit sessions anymore.</p>
+          <p class="m-line">You give the order once.</p>
+          <p class="m-line">Your terminal becomes mission control.</p>
           <p class="m-line m-accent">Made for vibe coders.</p>
         </div>
         <p class="manifesto-sub reveal">the people who ship at 3am with eight panes glowing.</p>
@@ -403,6 +409,7 @@
           </li>
         </ol>
         <p class="reveal"><a class="btn btn-ghost" href="https://github.com/daman8271/the-perfect-orchestrator/tree/main/docs" rel="noopener">or read the docs →</a></p>
+        <p class="star-quiet reveal">if it earned it — <a href="https://github.com/daman8271/the-perfect-orchestrator" rel="noopener">a star helps others find this</a>.</p>
       </div>
     </section>
 
@@ -415,23 +422,23 @@
         <div class="accordion reveal-stagger">
           <details>
             <summary>What does a fleet cost in tokens?</summary>
-            <p>Workers are full Claude Code sessions on your existing plan — no API-key markup, no middleman. A 4-worker audit consumes roughly what 4 interactive sessions would, so size fleets to the work: spin up six workers for a cross-module sweep, not for a one-file fix.</p>
+            <p>Workers are full Claude Code sessions on your existing plan: no API-key markup, no middleman. A 4-worker audit consumes roughly what 4 interactive sessions would, so size fleets to the work: spin up six workers for a cross-module sweep, not for a one-file fix.</p>
           </details>
           <details>
             <summary>Is verification automatic?</summary>
-            <p>It&rsquo;s step 8 of the lead&rsquo;s protocol, not an optional extra: before reporting, the lead has a <em>different</em> worker try to refute each result, and signs off only on the survivors. The <code>/orch</code> skill bakes the loop in — spawn, brief, monitor, collect, <strong>verify, then report</strong>. A first-class <code>orch verify</code> command (auto-spawned refuters per done-flag) is on the roadmap.</p>
+            <p>It&rsquo;s step 8 of the lead&rsquo;s protocol, not an optional extra: before reporting, the lead has a <em>different</em> worker try to refute each result, and signs off only on the survivors. The <code>/orch</code> skill bakes the loop in: spawn, brief, monitor, collect, <strong>verify, then report</strong>. A first-class <code>orch verify</code> command (auto-spawned refuters per done-flag) is on the roadmap.</p>
           </details>
           <details>
             <summary>Is it safe to run autonomous workers?</summary>
-            <p>Workers run in auto mode with a generous allowlist — git, node, python, file edits, network fetches. That power is deliberate, and so are the limits: <code>rm</code> is <em>not</em> allowlisted, so destructive deletes still hit the permission classifier instead of running blind. Workers share your Claude credentials but get an isolated config dir — your hooks, history, and settings are untouched. Run fleets on a VPS or in a container, in repos you can <code>git reset</code>.</p>
+            <p>Workers run in auto mode with a generous allowlist: git, node, python, file edits, network fetches. That power is deliberate, and so are the limits: <code>rm</code> is <em>not</em> allowlisted, so destructive deletes still hit the permission classifier instead of running blind. Workers share your Claude credentials but get an isolated config dir — your hooks, history, and settings are untouched. Run fleets on a VPS or in a container, in repos you can <code>git reset</code>.</p>
           </details>
           <details>
             <summary>Why tmux instead of a headless SDK?</summary>
-            <p>Observability is the feature. Every worker is a real TUI in a real pane — you can watch it think, catch it stalling, and nudge it mid-task. Headless API calls hide exactly the behavior you most need to see when you&rsquo;re trusting agents with real work.</p>
+            <p>Observability is the feature. Every worker is a real TUI in a real pane. You can watch it think, catch it stalling, and nudge it mid-task. Headless API calls hide exactly the behavior you most need to see when you&rsquo;re trusting agents with real work.</p>
           </details>
           <details>
             <summary>What about Anthropic&rsquo;s Agent Teams?</summary>
-            <p>Agent Teams is experimental and gated behind an env flag. The Perfect Orchestrator runs today on stock Claude Code with no experimental flags — and adds the adversarial verification layer Agent Teams doesn&rsquo;t have. A compatibility layer is on the roadmap.</p>
+            <p>Agent Teams is experimental and gated behind an env flag. The Perfect Orchestrator runs today on stock Claude Code with no experimental flags, and it adds the adversarial verification layer Agent Teams doesn&rsquo;t have. A compatibility layer is on the roadmap.</p>
           </details>
           <details>
             <summary>When should I <em>not</em> use this?</summary>
@@ -449,7 +456,6 @@
         <img src="assets/logo.png" alt="The Perfect Orchestrator logo" width="24" height="24">
         <span>MIT © 2026 danny (daman8271)</span>
       </p>
-      <p class="footer-note">this site was designed, written, and shipped by the very fleet it advertises.</p>
       <ul class="footer-links">
         <li><a href="https://github.com/daman8271/the-perfect-orchestrator" rel="noopener">GitHub</a></li>
         <li><a href="https://github.com/daman8271/the-perfect-orchestrator/blob/main/docs/LANDSCAPE.md" rel="noopener">Landscape survey</a></li>

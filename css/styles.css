@@ -1,23 +1,47 @@
 /* ============================================================================
    THE PERFECT ORCHESTRATOR — design system
    Single stylesheet. No frameworks, no imports.
-   Contract: DESIGN-BRIEF.md §3 + bus.md [W1] structural classes + lead updates
-   (Space Grotesk body, --amber #e3b341, --cyan #56d4dd, --bg-void band).
+   Contract: DESIGN-BRIEF.md §3 + bus.md [W1] structural classes + LEAD UPDATE 2
+   (Archivo display/body, Claude clay --accent #d97757 per orange-spec.md,
+   --cyan #56d4dd, --bg-void band. Orange commands, green verifies, red refutes.)
    ========================================================================== */
 
-/* ---- 1. Tokens (brief §1 + lead update) ----------------------------------- */
+/* ---- 1. Tokens (brief §1 + LEAD UPDATE 2: clay rebrand per orange-spec.md) -- */
 :root {
   --bg:        #0a0e14;   /* section base — darker than GitHub dark */
   --bg-void:   #060911;   /* page body + #vibe band — the deep end */
   --bg-raised: #0f141d;   /* cards, terminal chrome */
   --bg-glass:  rgba(15,20,29,.72);
-  --line:      rgba(63,185,80,.14);   /* hairline borders, green-tinted */
-  --line-hot:  rgba(63,185,80,.38);
-  --green:     #3fb950;   /* terminal green — primary accent */
-  --green-hi:  #56d364;
-  --cyan:      #56d4dd;   /* secondary accent, links/hovers */
-  --amber:     #e3b341;   /* flagship gold — the LEAD color, CTAs */
-  --red:       #f85149;   /* REFUTED */
+
+  /* hairlines: neutral slate (was green-tinted — green demoted to semantics) */
+  --line:      rgba(148,158,172,.13);
+  --line-hot:  rgba(148,158,172,.30);
+
+  /* ACCENT — Claude clay. #D97757 = --swatch--clay (anthropic.com),
+     --color-clay (claude.com). Verified 2026-06-06. */
+  --accent:        #d97757;
+  --accent-hi:     #f59575;            /* CLI "claudeShimmer" — hover/bright tier */
+  --accent-deep:   #c6613f;            /* --color-clay-hover — fills, pressed, hairlines */
+  --accent-rgb:    217,119,87;
+  --glow-accent:    0 0 26px rgba(var(--accent-rgb), .28);
+  --glow-accent-lg: 0 0 38px rgba(var(--accent-rgb), .55), 0 0 90px rgba(var(--accent-rgb), .25);
+
+  /* legacy aliases — every existing var(--amber*) consumer converts in one move */
+  --amber:     var(--accent);
+  --amber-rgb: var(--accent-rgb);
+
+  /* GREEN — demoted to terminal/verified semantics only */
+  --green:      #3fb950;   /* $ prompts, caret, ✓, stat numbers */
+  --green-hi:   #56d364;   /* VERIFIED / CONFIRMED verdicts */
+  --green-mute: #7fa48a;   /* ambient terminal flavor (overlines) — 6.7–7.2:1, 12px-safe */
+  --green-rgb:  63,185,80;
+
+  --cyan:      #56d4dd;    /* links */
+  --cyan-hi:   #7ce0e8;    /* link hover (was green-hi) */
+  --cyan-rgb:  86,212,221;
+  --red:       #f85149;    /* REFUTED */
+  --warn:      #d29922;    /* table ~ glyphs ONLY — keeps "partial" distinct from brand */
+
   --ink:       #e6edf3;   /* primary text */
   --ink-mute:  #9aa4b2;   /* secondary text */
   --ink-faint: #78828f;   /* captions, meta — QA: ≥4.5:1 on all three backgrounds (was #58616e @ ~3:1) */
@@ -25,18 +49,16 @@
 
 /* non-color system tokens */
 :root {
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body:    "Space Grotesk", system-ui, sans-serif;  /* lead update: Inter dropped */
+  /* LEAD UPDATE 2: Space Grotesk OUT — Archivo variable (wght+wdth) in.
+     Headlines ride the width axis (112%); JetBrains Mono unchanged. */
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body:    "Archivo", system-ui, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --radius:       14px;
   --radius-sm:    10px;
   --wrap:         1140px;
   --ease-out:     cubic-bezier(.2,.7,.2,1);
   --nav-h:        64px;
-  /* amber/cyan as raw channels for alpha mixes */
-  --amber-rgb:    227,179,65;
-  --cyan-rgb:     86,212,221;
-  --green-rgb:    63,185,80;
 }
 
 /* conic-gradient border angle (animatable) */
@@ -75,11 +97,11 @@ input, button, textarea, select { font: inherit; color: inherit; }
 button { background: none; border: none; cursor: pointer; }
 
 a { color: var(--cyan); text-decoration: none; }
-a:hover { color: var(--green-hi); }
+a:hover { color: var(--cyan-hi); }   /* links brighten in their own hue */
 
 ul, ol { padding-left: 1.2em; }
 
-::selection { background: rgba(var(--amber-rgb), .3); color: var(--ink); }
+::selection { background: rgba(var(--accent-rgb), .3); color: var(--ink); }  /* ink on 30% clay: 10.57:1 */
 
 :focus-visible {
   outline: 2px solid var(--cyan);
@@ -125,21 +147,29 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
+/* Archivo's real width axis: slightly expanded headlines = mission-control
+   character (lead cap: ≤115%). Archivo needs less negative tracking than
+   Space Grotesk did. */
+h1, h2 { font-stretch: 112%; }
+
 h1 {
   font-size: clamp(2.6rem, 6vw, 4.6rem);
-  letter-spacing: -0.03em;
+  font-weight: 680;
+  letter-spacing: -0.015em;
 }
 
 h2 {
   font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-  letter-spacing: -0.02em;
+  font-weight: 660;
+  letter-spacing: -0.01em;
   margin-bottom: 1.1rem;
 }
 
 h3 {
   font-size: 1.18rem;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  font-stretch: 100%;
+  letter-spacing: -0.005em;
 }
 
 p { max-width: 62ch; }
@@ -148,7 +178,8 @@ p + p { margin-top: 1em; }
 
 code, kbd, pre { font-family: var(--font-mono); }
 
-/* lead update: eyebrow = JetBrains Mono 12px uppercase ls .12em green */
+/* lead update: eyebrow = JetBrains Mono 12px uppercase ls .12em
+   (clay rebrand: muted green — terminal flavor that doesn't compete) */
 .overline {
   display: block;
   font-family: var(--font-mono);
@@ -156,7 +187,7 @@ code, kbd, pre { font-family: var(--font-mono); }
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--green);
+  color: var(--green-mute);
   margin-bottom: 1.1rem;
 }
 
@@ -214,15 +245,18 @@ code, kbd, pre { font-family: var(--font-mono); }
 }
 .btn:hover { transform: translateY(-1px); }
 
+/* primary CTA — Claude clay (always dark text on clay fills, never white) */
+.btn-accent,
 .btn-amber {
-  border-color: rgba(var(--amber-rgb), .55);
-  color: var(--amber);
+  border-color: rgba(var(--accent-rgb), .55);
+  color: var(--accent);
 }
+.btn-accent:hover,
 .btn-amber:hover {
-  background: var(--amber);
-  border-color: var(--amber);
+  background: var(--accent);
+  border-color: var(--accent);
   color: #0a0e14;
-  box-shadow: 0 0 26px rgba(var(--amber-rgb), .22);
+  box-shadow: var(--glow-accent);
 }
 
 .btn-ghost {
@@ -232,6 +266,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .btn-ghost:hover {
   border-color: var(--line-hot);
   color: var(--ink);
+  background: rgba(148,158,172,.05);
 }
 
 /* ---- 7. Sticky glass nav ----------------------------------------------------------- */
@@ -276,7 +311,7 @@ code, kbd, pre { font-family: var(--font-mono); }
   white-space: nowrap;
 }
 .brand img { width: 28px; height: 28px; }
-.brand:hover { color: var(--green-hi); }
+.brand:hover { color: var(--accent-hi); }   /* the brand hovers brand-colored */
 
 .nav-links {
   display: flex;
@@ -286,12 +321,27 @@ code, kbd, pre { font-family: var(--font-mono); }
   padding: 0;
 }
 .nav-links a:not(.btn) {
+  position: relative;
   font-size: .9rem;
   font-weight: 500;
   color: var(--ink-mute);
+  white-space: nowrap;   /* "How it works" must never wrap to two lines */
   transition: color .2s var(--ease-out);
 }
 .nav-links a:not(.btn):hover { color: var(--ink); }
+/* clay underline sweeps in left→right */
+.nav-links a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -7px;
+  height: 1px;
+  background: var(--accent);
+  transition: right .25s var(--ease-out);
+}
+.nav-links a:not(.btn):hover::after,
+.nav-links a:not(.btn):focus-visible::after { right: 0; }
 
 /* ---- 8. Hero -------------------------------------------------------------------------- */
 #hero {
@@ -335,7 +385,7 @@ code, kbd, pre { font-family: var(--font-mono); }
       rgba(10,14,20,.42) 38%,
       rgba(10,14,20,.8) 72%,
       var(--bg) 100%),
-    radial-gradient(120% 70% at 50% 110%, rgba(var(--green-rgb),.08), transparent 60%);
+    radial-gradient(120% 70% at 50% 110%, rgba(var(--accent-rgb),.07), transparent 60%);
 }
 #hero::before { z-index: 0; }          /* only the .hero-media::after sits over video */
 
@@ -353,7 +403,8 @@ code, kbd, pre { font-family: var(--font-mono); }
 .h1-accent {
   display: block;
   font-style: normal;
-  color: var(--amber);
+  color: var(--accent);
+  text-shadow: 0 2px 24px rgba(0,0,0,.35);   /* scrim insurance over video */
 }
 
 #hero .lead { margin-bottom: 2.2rem; }
@@ -384,7 +435,9 @@ code, kbd, pre { font-family: var(--font-mono); }
   padding: .42em 1em;
   background: rgba(15,20,29,.5);
   white-space: nowrap;
+  transition: border-color .25s var(--ease-out), color .25s var(--ease-out);
 }
+.chip:hover { border-color: var(--line-hot); color: var(--ink); }
 
 /* scroll cue */
 .scroll-cue {
@@ -406,6 +459,10 @@ code, kbd, pre { font-family: var(--font-mono); }
 
 /* typed-in overline + caret */
 .typed { white-space: nowrap; }
+/* the LEAD-UPDATE-3 eyebrow is 40ch — must wrap on tiny phones (360: 378>360) */
+@media (max-width: 400px) {
+  .typed { white-space: normal; }
+}
 .caret {
   display: inline-block;
   width: .6ch;
@@ -441,9 +498,11 @@ code, kbd, pre { font-family: var(--font-mono); }
   inset: 0;
   border-radius: inherit;
   padding: 1px;
+  /* orange-led ring with one green pulse — command box wears the command
+     color; green is the live tick */
   background: conic-gradient(from var(--cc-angle),
-    var(--amber), var(--green) 35%, rgba(var(--green-rgb),.25) 55%,
-    var(--green) 70%, var(--amber) 100%);
+    var(--accent), rgba(var(--accent-rgb),.28) 38%, var(--green) 52%,
+    rgba(var(--accent-rgb),.28) 66%, var(--accent) 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -529,6 +588,8 @@ code, kbd, pre { font-family: var(--font-mono); }
   line-height: 1.75;
   overflow-x: auto;
   min-height: 3em;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148,158,172,.35) transparent;
 }
 
 /* terminal line grammar.
@@ -539,7 +600,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .t-line.t-bus { color: rgba(var(--cyan-rgb), .82); }
 .t-line.t-out { color: var(--ink-mute); }
 .t-prompt  { color: var(--green); }
-.t-confirm { color: var(--amber); font-weight: 700; }
+.t-confirm { color: var(--green-hi); font-weight: 700; }  /* verdicts are green/red, never brand */
 .t-refute  { color: var(--red);   font-weight: 700; }
 .t-ok      { color: var(--green-hi); }
 
@@ -561,16 +622,16 @@ code, kbd, pre { font-family: var(--font-mono); }
 #problem .terminal .t-refute,
 #problem .terminal .t-line.t-refuted { color: var(--red); }
 
-/* quiet star ask under the terminal */
-.star-ask {
-  margin-top: 1.1rem;
+/* quiet star ask — single instance, end of #start (LEAD-UPDATE-3 §1) */
+.star-quiet {
+  margin-top: 1.6rem;
   font-family: var(--font-mono);
   font-size: .78rem;
   letter-spacing: .03em;
   color: var(--ink-faint);
 }
-.star-ask a { color: var(--cyan); }
-.star-ask a:hover { color: var(--green-hi); }
+.star-quiet a { color: var(--cyan); }
+.star-quiet a:hover { color: var(--cyan-hi); }
 
 /* ---- 12. #how — steps + demo terminal + media ------------------------------------------------ */
 .steps {
@@ -593,7 +654,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 }
 .step:hover {
   border-color: var(--line-hot);
-  box-shadow: 0 0 34px rgba(var(--green-rgb), .07);
+  box-shadow: 0 10px 34px rgba(0,0,0,.45);   /* neutral lift, no green glow */
   transform: translateY(-2px);
 }
 
@@ -602,7 +663,7 @@ code, kbd, pre { font-family: var(--font-mono); }
   font-family: var(--font-mono);
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   font-weight: 700;
-  color: var(--amber);
+  color: var(--accent);
   opacity: .9;
   line-height: 1;
   margin-bottom: .9rem;
@@ -619,9 +680,10 @@ code, kbd, pre { font-family: var(--font-mono); }
 }
 .step p { font-size: .95rem; color: var(--ink-mute); }
 .step code {
+  /* inline command chips — commands are the lead's vocabulary: clay */
   font-size: .85em;
-  color: var(--green);
-  background: rgba(var(--green-rgb), .08);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), .08);
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: .1em .45em;
@@ -661,8 +723,8 @@ figcaption {
   transition: border-color .25s var(--ease-out), box-shadow .25s var(--ease-out);
 }
 .film-slate:hover {
-  border-color: rgba(var(--amber-rgb), .4);
-  box-shadow: 0 0 36px rgba(var(--amber-rgb), .08);
+  border-color: rgba(var(--accent-rgb), .4);
+  box-shadow: 0 0 36px rgba(var(--accent-rgb), .10);
 }
 .film-slate video {
   border: none;
@@ -676,8 +738,19 @@ figcaption {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(46% 50% at 50% 8%, rgba(var(--amber-rgb), .06), transparent 70%);
+  /* #verify keeps the GREEN halo — verification is green's home turf */
+  background: radial-gradient(46% 50% at 50% 8%, rgba(var(--green-rgb), .05), transparent 70%);
 }
+
+/* framing line above the stats — the gauntlet setup (LEAD-UPDATE-3 §2).
+   Lead spec: lead-style line. */
+.stats-frame {
+  margin-top: 1.6rem;
+  font-size: 1.14rem;
+  color: var(--ink-mute);
+  max-width: 62ch;
+}
+.stats-frame + .stats { margin-block-start: 1.8rem; }
 
 .stats {
   display: grid;
@@ -716,13 +789,29 @@ figcaption {
   color: var(--ink-mute);   /* QA: these captions carry the data — readable tier */
 }
 
+/* the dogfood confession — best trust line we own, promoted from the footer
+   (LEAD-UPDATE-3 §3). Lead spec: PRESENCE — mono, clay, centered, generous
+   margin. NOT footer-grey. */
+.dogfood-line {
+  margin-block: 2.8rem 1rem;
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: .95rem;
+  letter-spacing: .03em;
+  line-height: 1.65;
+  color: var(--accent);   /* clay on --bg: 6.2:1 */
+  max-width: none;        /* single line at desktop; wraps naturally on phones */
+  text-wrap: balance;
+}
+
 /* cyan mono inline links (landscape survey, read-the-docs) */
 .link-mono {
   font-family: var(--font-mono);
   font-size: .86rem;
   color: var(--cyan);
 }
-.link-mono:hover { color: var(--green-hi); }
+.link-mono:hover { color: var(--cyan-hi); }
 
 /* ---- 14. #commands — cmd-grid ------------------------------------------------------------------- */
 .cmd-grid {
@@ -745,16 +834,17 @@ figcaption {
 .cmd-row:first-child { border-top: none; }
 .cmd-row:hover {
   border-color: var(--line-hot);
-  background: rgba(var(--green-rgb), .035);
+  background: rgba(148,158,172,.04);
 }
 /* descriptions span the full row — 2-col grid with 3 children otherwise
    auto-places desc into the narrow name column (QA-verified dead space) */
 .cmd-desc { grid-column: 1 / -1; }
 
 .cmd-name {
+  /* slash-commands are the lead's vocabulary — clay */
   font-family: var(--font-mono);
   font-size: .92rem;
-  color: var(--green);
+  color: var(--accent);
   white-space: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
@@ -765,6 +855,25 @@ figcaption {
   color: var(--ink-mute);
   max-width: none;
 }
+
+/* compact variant (LEAD-UPDATE-3 §4): two-column reference card at desktop —
+   name+args on one line, desc tucked under. Mobile stays the 1-col stack. */
+@media (min-width: 900px) {
+  .cmd-grid--compact { display: grid; grid-template-columns: 1fr 1fr; }
+  .cmd-grid--compact .cmd-row {
+    display: block;
+    padding: 1.05rem 1.4rem 1.1rem;
+  }
+  /* row-major auto-placement: even children form the right column */
+  .cmd-grid--compact .cmd-row:nth-child(even) { border-left: 1px solid var(--line); }
+  .cmd-grid--compact .cmd-row:nth-child(2) { border-top: none; }
+  .cmd-grid--compact .cmd-name { display: inline; margin-right: .55em; overflow: visible; }
+  .cmd-grid--compact .cmd-args { display: inline; font-size: .8rem; }
+  .cmd-grid--compact .cmd-desc { margin-top: .4rem; font-size: .9rem; }
+}
+
+/* the orch-worker footnote sits tight under the grid */
+#commands .footnote { margin-top: .9rem; }
 
 /* ---- 15. #patterns — cards ------------------------------------------------------------------------ */
 .cards {
@@ -786,7 +895,7 @@ figcaption {
 }
 .pattern-card:hover {
   border-color: var(--line-hot);
-  box-shadow: 0 0 34px rgba(var(--green-rgb), .08), 0 10px 30px rgba(0,0,0,.35);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
   transform: translateY(-3px);
 }
 
@@ -798,15 +907,67 @@ figcaption {
 }
 .pattern-card p { font-size: .94rem; color: var(--ink-mute); }
 
+/* security strip — quiet aside panel, end of #patterns (LEAD-UPDATE-3 §5) */
+.security-strip {
+  margin-top: 2.6rem;
+  padding: 1.5rem 1.6rem 1.25rem;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.security-strip .overline {
+  color: var(--accent);   /* BLAST RADIUS reads in clay — command voice */
+  margin-bottom: .9rem;
+}
+.security-points {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: .55rem 2rem;
+  font-size: .92rem;
+  color: var(--ink-mute);
+}
+.security-points li {
+  position: relative;
+  padding-left: 1.15em;
+}
+.security-points li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--ink-faint);
+}
+.security-points code { font-size: .88em; color: var(--ink); }
+.security-strip .footnote { margin-top: 1.1rem; }
+
+/* wide screens: the three points read as an actual strip */
+@media (min-width: 900px) {
+  .security-points { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 /* ---- 16. #compare — table --------------------------------------------------------------------------- */
 .table-wrap {
   margin-top: 2.4rem;
   overflow-x: auto;
   max-height: 78vh;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148,158,172,.35) transparent;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   -webkit-overflow-scrolling: touch;
+  /* scroll affordance: edge shadows that self-hide at the ends.
+     "local" cover layers travel with the content and mask the fixed
+     shadows when the matching edge is reached — pure CSS, no JS. */
+  background-image:
+    linear-gradient(90deg,  var(--bg) 30%, rgba(10,14,20,0)),
+    linear-gradient(270deg, var(--bg) 30%, rgba(10,14,20,0)),
+    radial-gradient(farthest-side at 0 50%,   rgba(0,0,0,.5), transparent),
+    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.5), transparent);
+  background-position: left center, right center, left center, right center;
+  background-size: 40px 100%, 40px 100%, 16px 100%, 16px 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
 }
 
 #compare table {
@@ -815,20 +976,23 @@ figcaption {
   border-collapse: collapse;
   font-size: .84rem;       /* 6 columns must fit the 1140 wrap on desktop */
 }
-#compare th, #compare td { padding-inline: .65rem; }
 .t-line.t-cmd::first-letter { color: var(--green); }  /* the $ prompt on typed lines */
 
 #compare th,
 #compare td {
-  padding: .85rem .6rem;
+  padding: .85rem .55rem;
   text-align: center;
   border-top: 1px solid var(--line);
   white-space: nowrap;
 }
-/* column headers may wrap — six columns must fit the wrap on desktop */
+/* long annotations ("debate-during-investigation only") may wrap —
+   they alone pushed the table 21px past the 1140 wrap */
+#compare tbody td { white-space: normal; line-height: 1.45; }
+/* column headers may wrap — six columns must fit the wrap on desktop
+   (audit: 108px min + 200px first col overflowed the 1076px wrap by 57px) */
 #compare thead th {
   white-space: normal;
-  min-width: 108px;
+  min-width: 96px;
   line-height: 1.35;
 }
 #compare th:first-child,
@@ -837,7 +1001,7 @@ figcaption {
   font-weight: 500;
   color: var(--ink-mute);
   white-space: normal;
-  min-width: 200px;
+  min-width: 170px;
 }
 
 #compare thead th {
@@ -855,23 +1019,23 @@ figcaption {
   color: var(--ink);
 }
 
-/* TPO column — amber hairline + faint amber radial glow */
+/* TPO column — clay hairline + faint clay radial glow */
 .tpo-col {
-  border-left: 1px solid rgba(var(--amber-rgb), .4) !important;
-  border-right: 1px solid rgba(var(--amber-rgb), .4) !important;
+  border-left: 1px solid rgba(var(--accent-rgb), .4) !important;
+  border-right: 1px solid rgba(var(--accent-rgb), .4) !important;
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(var(--amber-rgb), .09), rgba(var(--amber-rgb), .025) 70%);
+    radial-gradient(120% 90% at 50% 0%, rgba(var(--accent-rgb), .09), rgba(var(--accent-rgb), .025) 70%);
 }
 #compare thead th.tpo-col {
-  color: var(--amber);
+  color: var(--accent);
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(var(--amber-rgb), .12), rgba(var(--amber-rgb), .04) 70%),
+    radial-gradient(120% 90% at 50% 0%, rgba(var(--accent-rgb), .12), rgba(var(--accent-rgb), .04) 70%),
     var(--bg-raised);
 }
 
-/* capability glyphs */
+/* capability glyphs — "partial" must NOT wear the brand color */
 .ok   { color: var(--green);     font-weight: 700; }
-.warn { color: var(--amber);     font-weight: 700; }
+.warn { color: var(--warn);      font-weight: 700; }
 .no   { color: var(--ink-faint); font-weight: 400; }
 
 .footnote {
@@ -894,7 +1058,7 @@ figcaption {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(50% 42% at 50% 55%, rgba(var(--amber-rgb), .05), transparent 70%);
+  background: radial-gradient(50% 42% at 50% 55%, rgba(var(--accent-rgb), .06), transparent 70%);
 }
 #vibe .overline { margin-bottom: 2.2rem; }
 
@@ -930,9 +1094,9 @@ figcaption {
 .manifesto .m-line:nth-child(3) { transition-delay: .24s; }
 .manifesto .m-line:nth-child(4) { transition-delay: .4s; }
 
-/* final line: amber, larger, one-time glow pulse on reveal */
+/* final line: clay, larger, one-time glow pulse on reveal */
 .m-accent {
-  color: var(--amber);
+  color: var(--accent);
   font-size: clamp(2.1rem, 5.6vw, 4rem);
   margin-top: .2em;
 }
@@ -941,9 +1105,9 @@ figcaption {
   animation: m-glow 1.6s var(--ease-out) .55s 1 both;
 }
 @keyframes m-glow {
-  0%   { text-shadow: 0 0 0 rgba(var(--amber-rgb), 0); }
-  35%  { text-shadow: 0 0 38px rgba(var(--amber-rgb), .55), 0 0 90px rgba(var(--amber-rgb), .25); }
-  100% { text-shadow: 0 0 18px rgba(var(--amber-rgb), .18); }
+  0%   { text-shadow: 0 0 0 rgba(var(--accent-rgb), 0); }
+  35%  { text-shadow: 0 0 38px rgba(var(--accent-rgb), .55), 0 0 90px rgba(var(--accent-rgb), .25); }
+  100% { text-shadow: 0 0 18px rgba(var(--accent-rgb), .18); }
 }
 
 .manifesto-sub {
@@ -989,6 +1153,16 @@ figcaption {
 figure.media { position: relative; }
 
 /* ---- 18. #start — quickstart ------------------------------------------------------------------------------ */
+/* faint clay aura — the closing CTA glows the command color (#verify glows
+   green, #vibe + #start glow clay: section-level storytelling) */
+#start::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(42% 46% at 50% 0%, rgba(var(--accent-rgb), .05), transparent 70%);
+}
+
 .start-list {
   list-style: none;
   padding: 0;
@@ -1010,7 +1184,7 @@ figure.media { position: relative; }
   font-family: var(--font-mono);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--amber);
+  color: var(--accent);
   opacity: .9;
 }
 #start .btn-ghost { margin-top: 2rem; }
@@ -1047,7 +1221,7 @@ figure.media { position: relative; }
   user-select: none;
   -webkit-user-select: none;
 }
-.accordion summary em { font-style: italic; color: var(--amber); }
+.accordion summary em { font-style: italic; color: var(--accent); }
 .accordion summary::-webkit-details-marker { display: none; }
 .accordion summary::after {
   content: "+";
@@ -1058,10 +1232,13 @@ figure.media { position: relative; }
   margin-top: -0.6em;
   font-family: var(--font-mono);
   font-size: 1.1rem;
-  color: var(--green);
-  transition: transform .3s var(--ease-out);
+  color: var(--ink-mute);
+  transition: transform .3s var(--ease-out), color .3s var(--ease-out);
 }
-.accordion details[open] summary::after { transform: rotate(45deg); }
+.accordion details[open] summary::after {
+  transform: rotate(45deg);
+  color: var(--accent);   /* open state answers in orange */
+}
 
 .accordion details > :not(summary) {
   padding: 0 1.3rem 1.2rem;
@@ -1092,15 +1269,6 @@ figure.media { position: relative; }
 
 #footer .brand { font-size: .78rem; }
 #footer .brand img { width: 22px; height: 22px; }
-
-.footer-note {
-  font-family: var(--font-mono);
-  font-size: .74rem;
-  letter-spacing: .04em;
-  color: var(--ink-faint);
-  text-align: center;
-  max-width: 44ch;
-}
 
 .footer-links {
   display: flex;
@@ -1142,11 +1310,30 @@ figure.media { position: relative; }
 .reveal-stagger.in > *:nth-child(8) { transition-delay: .56s; }
 
 /* ---- 22. Responsive ------------------------------------------------------------------------------------------------ */
+/* nav tightens before it collapses: at 768–900 the full link row + GitHub
+   button overflowed the wrap (audit: btn right edge at 770px on a 768 vp) */
+@media (max-width: 900px) {
+  .nav-inner,
+  #nav .wrap { gap: 1rem; }
+  .nav-links { gap: .9rem; }
+  .nav-links a:not(.btn) { font-size: .84rem; }
+  .brand { font-size: .74rem; letter-spacing: .09em; }
+  #nav .btn { font-size: .82rem; padding: .72em 1em; }
+}
+
 @media (max-width: 980px) {
-  .steps {
-    grid-template-columns: 1fr;
-    max-width: 560px;
+  .steps { grid-template-columns: 1fr; max-width: 680px; }
+  /* mid widths: lay each step horizontally — number beside text — so the
+     single column doesn't leave a dead right half (audit: 768) */
+  .step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 1.4rem;
+    align-items: start;
+    padding-block: 1.35rem;
   }
+  .step-num { grid-row: 1 / 3; margin-bottom: 0; line-height: 1.15; }
+  .step h3 { margin-bottom: .45rem; }
 
   .split { grid-template-columns: 1fr; }
   .split .terminal { order: 2; }
@@ -1154,15 +1341,23 @@ figure.media { position: relative; }
   .cmd-row { grid-template-columns: 1fr; gap: .3rem; }
 }
 
+/* below the tightened-nav floor the link row can't fit — brand + GitHub only */
+@media (max-width: 767px) {
+  .nav-links { display: none; }
+}
+
 @media (max-width: 640px) {
   body { font-size: 1rem; }
 
   .section { padding-block: clamp(3.6rem, 12vw, 5rem); }
 
-  /* nav collapses: only brand + GitHub button remain */
-  .nav-links a:not(.btn),
-  .nav-links li:not(:has(.btn)) { display: none; }
-  .brand span { display: none; }   /* logo mark only when wordmark is in a span */
+  /* nav wordmark goes too — logo mark only (scoped to #nav: the footer
+     .brand span carries the MIT copyright and must stay visible) */
+  #nav .brand span { display: none; }
+
+  /* phones: step number back on top — the side-by-side grid gets cramped */
+  .step { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .step-num { grid-row: auto; margin-bottom: .9rem; }
 
   .cta-row { flex-direction: column; align-items: stretch; }
   .cta-row .btn { justify-content: center; }
@@ -1176,7 +1371,21 @@ figure.media { position: relative; }
 
   .footer-inner,
   #footer .wrap { flex-direction: column; text-align: center; }
-  .footer-note { max-width: none; }
+  #footer .brand { flex-direction: column; gap: .55rem; }
+}
+
+/* landscape phones / short laptops: the 100svh hero + 112px top padding
+   left no fold for content — compact the whole hero stack */
+@media (max-height: 520px) {
+  #hero {
+    min-height: 0;
+    padding-block: calc(var(--nav-h) + 1.8rem) 3.2rem;
+  }
+  #hero h1 { font-size: clamp(1.9rem, 8.5vh, 2.7rem); margin-bottom: 1rem; }
+  #hero .overline { margin-bottom: .9rem; }
+  #hero .lead { margin-bottom: 1.5rem; }
+  .cta-row { margin-bottom: 1.4rem; }
+  .scroll-cue { display: none; }
 }
 
 /* ---- 23. Reduced motion ---------------------------------------------------------------------------------------------- */
