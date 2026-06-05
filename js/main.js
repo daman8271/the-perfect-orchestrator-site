@@ -110,6 +110,7 @@
     function restore() {
       if (restored) return;
       restored = true;
+      try { body.removeAttribute('aria-hidden'); } catch (e) { /* ignore */ }
       for (var r = 0; r < saved.length; r++) {
         saved[r].el.style.display = '';
         saved[r].el.style.opacity = '';
@@ -119,6 +120,8 @@
     }
 
     try {
+      // Visual-only replay: hide the transcript from AT while lines are missing/partial.
+      body.setAttribute('aria-hidden', 'true');
       for (var h = 0; h < saved.length; h++) saved[h].el.style.display = 'none';
 
       var idx = 0;
@@ -126,7 +129,10 @@
       var nextLine = function () {
         try {
           if (restored) return;
-          if (idx >= saved.length) return; // done — caret stays blinking on last line
+          if (idx >= saved.length) {
+            body.removeAttribute('aria-hidden'); // replay complete — full transcript back for AT
+            return; // caret stays blinking on last line
+          }
           var line = saved[idx++];
           var isPrompt = /^\s*\$/.test(line.text);
           line.el.style.display = '';
@@ -230,6 +236,10 @@
         doc.body.appendChild(liveRegion);
       }
       liveRegion.textContent = msg;
+      // Clear after a beat so repeated copies re-announce reliably.
+      window.setTimeout(function () {
+        try { if (liveRegion.textContent === msg) liveRegion.textContent = ''; } catch (e2) { /* ignore */ }
+      }, 2000);
     } catch (e) { /* announcement is best-effort */ }
   }
 
@@ -314,6 +324,14 @@
           el.textContent = String(target);
           return;
         }
+        // AT always reads the final value; the animated number is decorative.
+        try {
+          var sr = doc.createElement('span');
+          sr.className = 'sr-only';
+          sr.textContent = String(target);
+          el.parentNode.insertBefore(sr, el);
+          el.setAttribute('aria-hidden', 'true');
+        } catch (e) { /* enhancement */ }
         var dur = 900;
         var t0 = null;
         function frame(now) {
@@ -341,8 +359,15 @@
       return host.tagName === 'VIDEO' ? host : host.querySelector('video');
     }
 
+    function isAmbient(v) {
+      return v.muted || v.hasAttribute('muted');
+    }
+
     function load(v, host) {
       if (v.getAttribute('data-video-loaded')) return;
+      // Ambient loops: skip the download for reduced-motion or Save-Data — poster stays.
+      var conn = navigator.connection;
+      if (isAmbient(v) && (reduced || (conn && conn.saveData))) return;
       v.setAttribute('data-video-loaded', '1');
       var changed = false;
       var src = v.getAttribute('data-src') || host.getAttribute('data-src');
@@ -370,6 +395,54 @@
       return;
     }
 
+    var userPaused = false; // WCAG 2.2.2: one choice governs all ambient loops
+    var toggles = [];
+
+    function maybePlay(v) {
+      if (isAmbient(v) && !reduced && !userPaused) {
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stays */ });
+      }
+    }
+
+    function startWhenIdle(fn) {
+      // Don't compete with LCP-path fetches: in-view-at-boot videos wait for window load.
+      if (doc.readyState === 'complete') { fn(); return; }
+      window.addEventListener('load', fn, { once: true });
+    }
+
+    function addToggle(host, v) {
+      if (!isAmbient(v)) return;
+      try {
+        var btn = doc.createElement('button');
+        btn.className = 'vid-toggle';
+        btn.setAttribute('aria-label', 'Pause background video');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.textContent = '❚❚';
+        // Never inside an aria-hidden wrapper: hero gets it on the section, figures on the figure.
+        var home = host.closest('#hero') || host.closest('figure') || host.parentNode;
+        if (!home) return;
+        home.appendChild(btn);
+        toggles.push({ btn: btn });
+        btn.addEventListener('click', function () {
+          userPaused = !userPaused;
+          var vids = doc.querySelectorAll('[data-video-lazy]');
+          for (var i = 0; i < vids.length; i++) {
+            var vv = videoOf(vids[i]);
+            if (!vv || !isAmbient(vv)) continue;
+            if (userPaused) { try { vv.pause(); } catch (e) { /* ignore */ } }
+            else { maybePlay(vv); }
+          }
+          for (var t = 0; t < toggles.length; t++) {
+            toggles[t].btn.setAttribute('aria-pressed', String(userPaused));
+            toggles[t].btn.setAttribute('aria-label',
+              userPaused ? 'Play background video' : 'Pause background video');
+            toggles[t].btn.textContent = userPaused ? '▶' : '❚❚';
+          }
+        });
+      } catch (e) { /* toggle is enhancement */ }
+    }
+
     var io = new IntersectionObserver(function (entries) {
       for (var i = 0; i < entries.length; i++) {
         var entry = entries[i];
@@ -377,12 +450,12 @@
         var v = videoOf(host);
         if (!v) continue;
         if (entry.isIntersecting) {
-          load(v, host);
-          // Autoplay ONLY muted ambient loops — never the explainer (has controls/sound).
-          if ((v.muted || v.hasAttribute('muted')) && !reduced) {
-            var p = v.play();
-            if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stays */ });
-          }
+          (function (vv, hh) {
+            startWhenIdle(function () {
+              load(vv, hh);
+              maybePlay(vv);
+            });
+          })(v, host);
         } else if (entry.intersectionRatio === 0) {
           if (!v.paused) {
             try { v.pause(); } catch (e) { /* ignore */ }
@@ -391,7 +464,11 @@
       }
     }, { rootMargin: '200px 0px 200px 0px', threshold: 0 });
 
-    for (var j = 0; j < hosts.length; j++) io.observe(hosts[j]);
+    for (var j = 0; j < hosts.length; j++) {
+      io.observe(hosts[j]);
+      var jv = videoOf(hosts[j]);
+      if (jv) addToggle(hosts[j], jv);
+    }
   }
 
   /* ------------------------------------------------- 7. smooth anchor scroll */
@@ -410,12 +487,18 @@
       var top = target.getBoundingClientRect().top + (window.scrollY || 0) - 72;
       window.scrollTo({ top: Math.max(0, top), behavior: reduced ? 'auto' : 'smooth' });
       try { history.pushState(null, '', '#' + id); } catch (err) { /* ignore */ }
+      // WCAG 2.4.3: move sequential focus to the target, not just the viewport.
+      try {
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      } catch (err) { /* focus is best-effort */ }
     });
   }
 
   /* --------------------------------------------------------------- boot ---- */
 
   ready(function () {
+    guard(function () { announce(''); }); // create the live region BEFORE first use (WCAG 4.1.3)
     guard(initNav);
     guard(initReveals); // also drives count-up + typed terminal + .m-line stagger
     guard(initCopy);

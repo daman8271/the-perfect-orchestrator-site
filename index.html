@@ -7,19 +7,22 @@
   <meta name="description" content="One lead Claude session commands N autonomous tmux workers. Every result adversarially verified. MIT, bash+tmux, zero daemons.">
   <meta name="theme-color" content="#0a0e14">
 
+  <link rel="canonical" href="https://the-perfect-orchestrator.vercel.app/">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://the-perfect-orchestrator.vercel.app/">
   <meta property="og:title" content="The Perfect Orchestrator — command a fleet of Claude coders">
   <meta property="og:description" content="One lead Claude session commands N autonomous tmux workers. Every result adversarially verified. MIT, bash+tmux, zero daemons.">
-  <meta property="og:image" content="assets/social-card.png">
+  <meta property="og:image" content="https://the-perfect-orchestrator.vercel.app/assets/social-card.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Perfect Orchestrator — command a fleet of Claude coders">
   <meta name="twitter:description" content="One lead Claude session commands N autonomous tmux workers. Every result adversarially verified. MIT, bash+tmux, zero daemons.">
-  <meta name="twitter:image" content="assets/social-card.png">
+  <meta name="twitter:image" content="https://the-perfect-orchestrator.vercel.app/assets/social-card.jpg">
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
+  <link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -53,7 +56,7 @@
     <!-- ============================== HERO ============================== -->
     <section id="hero" class="section">
       <div class="hero-media" aria-hidden="true">
-        <video class="hero-video" muted autoplay loop playsinline preload="none" poster="assets/hero-poster.jpg" data-video-lazy data-src="assets/video/hero-loop.mp4"></video>
+        <video class="hero-video" muted loop playsinline preload="none" poster="assets/hero-poster.jpg" data-video-lazy data-src="assets/video/hero-loop.mp4"></video>
       </div>
       <div class="wrap hero-content">
         <p class="overline typed">$ MADE FOR VIBE CODERS<span class="caret" aria-hidden="true"></span></p>
@@ -62,7 +65,7 @@
         <div class="cta-row reveal">
           <div class="cmd-copy">
             <code>git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator &amp;&amp; ./install.sh</code>
-            <button class="btn-copy" data-copy="git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator &amp;&amp; ./install.sh" aria-label="Copy command">copy</button>
+            <button class="btn-copy" data-copy="git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator &amp;&amp; ./install.sh" aria-label="Copy install command">copy</button>
           </div>
           <a class="btn btn-ghost" href="https://github.com/daman8271/the-perfect-orchestrator" rel="noopener">★ Star on GitHub</a>
         </div>
@@ -73,8 +76,8 @@
           <li class="chip">no experimental flags</li>
           <li class="chip">works with your Claude plan</li>
         </ul>
-        <p class="scroll-cue" aria-hidden="true">▼ scroll</p>
       </div>
+      <p class="scroll-cue" aria-hidden="true">▼ scroll</p>
     </section>
 
     <!-- ============================= PROBLEM ============================ -->
@@ -94,7 +97,7 @@
             <div class="terminal">
               <div class="term-head" aria-hidden="true">
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                <span class="term-title">orch-audit — pane 2</span>
+                <span class="term-title">orch-audit — bus.md</span>
               </div>
               <div class="term-body">
                 <span class="t-line t-bus">[W2] <span class="t-ok">✅ Done — all 14 tests passing.</span></span>
@@ -151,7 +154,7 @@
           </div>
         </div>
         <figure class="media reveal">
-          <video muted loop playsinline preload="none" poster="assets/verification.png" data-video-lazy data-src="assets/video/verify-loop.mp4"></video>
+          <video muted loop playsinline preload="none" width="1920" height="1080" poster="assets/verify-poster.jpg" data-video-lazy data-src="assets/video/verify-loop.mp4"></video>
           <figcaption class="media-caption">the verification pass, visualized.</figcaption>
         </figure>
       </div>
@@ -164,7 +167,7 @@
           <p class="overline">TRUST NOTHING</p>
           <h2>The only fleet where workers audit each other.</h2>
         </header>
-        <p class="lead reveal">We surveyed every public Claude-fleet orchestrator (and Anthropic&rsquo;s experimental Agent Teams). Adversarial result-verification existed in none of them. It exists here, as the core design rule: <em>findings don&rsquo;t count until a different worker has tried to kill them.</em></p>
+        <p class="lead reveal">We surveyed every public Claude-fleet orchestrator we could find (and Anthropic&rsquo;s experimental Agent Teams). Adversarial result-verification existed in none of them — the closest thing, Agent Teams&rsquo; agent debate, argues during investigation, not over results. It exists here, as the core design rule: <em>findings don&rsquo;t count until a different worker has tried to kill them.</em></p>
         <div class="stats reveal-stagger">
           <div class="stat">
             <span class="stat-num" data-count="15">15</span>
@@ -176,17 +179,20 @@
           </div>
           <div class="stat">
             <span class="stat-num" data-count="24">24</span>
-            <span class="stat-label">confirmed</span>
+            <span class="stat-label">confirmed by adversarial panels</span>
           </div>
           <div class="stat">
             <span class="stat-num" data-count="1">1</span>
-            <span class="stat-label">refuted</span>
+            <span class="stat-label">refuted and excluded</span>
           </div>
         </div>
+        <p class="footnote reveal">the top 25 load-bearing claims went to 3-vote adversarial panels — 24 confirmed, 1 refuted; the rest logged as context.</p>
         <p class="reveal"><a class="link-mono" href="https://github.com/daman8271/the-perfect-orchestrator/blob/main/docs/LANDSCAPE.md" rel="noopener">read the full landscape survey →</a></p>
         <figure class="media film-slate reveal">
-          <video controls preload="none" poster="assets/explainer-poster.jpg" data-video-lazy data-src="assets/video/explainer.mp4"></video>
-          <figcaption class="media-caption">the captain doesn&rsquo;t sail every ship — sound on.</figcaption>
+          <video controls preload="none" width="1920" height="1080" poster="assets/explainer-poster.jpg" aria-label="Explainer video: the captain analogy" data-video-lazy data-src="assets/video/explainer.mp4">
+            <track kind="captions" srclang="en" label="English" src="assets/video/explainer.vtt" default>
+          </video>
+          <figcaption class="media-caption">the captain doesn&rsquo;t sail every ship — sound on. transcript: &ldquo;one captain. a fleet of coders. and nobody&rsquo;s report goes unchecked.&rdquo;</figcaption>
         </figure>
       </div>
     </section>
@@ -278,7 +284,7 @@
           <p class="overline">THE LANDSCAPE</p>
           <h2>We checked everyone. Then built what was missing.</h2>
         </header>
-        <div class="table-wrap reveal">
+        <div class="table-wrap reveal" tabindex="0" role="region" aria-label="Orchestrator comparison table">
           <table aria-label="Feature comparison of Claude fleet orchestrators">
             <thead>
               <tr>
@@ -287,7 +293,7 @@
                 <th scope="col"><a href="https://github.com/Jedward23/Tmux-Orchestrator" rel="noopener">Tmux-Orchestrator</a></th>
                 <th scope="col"><a href="https://github.com/smtg-ai/claude-squad" rel="noopener">claude-squad</a></th>
                 <th scope="col"><a href="https://github.com/primeline-ai/claude-tmux-orchestration" rel="noopener">claude-tmux-orchestration</a></th>
-                <th scope="col">Claude Code Agent Teams</th>
+                <th scope="col"><a href="https://code.claude.com/docs/en/agent-teams" rel="noopener">Claude Code Agent Teams</a></th>
               </tr>
             </thead>
             <tbody>
@@ -357,6 +363,7 @@
     <!-- ============================== VIBE ============================== -->
     <section id="vibe" class="section">
       <div class="wrap">
+        <h2 class="sr-only">Made for vibe coders</h2>
         <p class="overline">$ whoami</p>
         <div class="manifesto reveal-stagger">
           <p class="m-line">You don&rsquo;t write every line anymore.</p>
@@ -379,19 +386,19 @@
           <li>
             <div class="cmd-copy">
               <code>git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator</code>
-              <button class="btn-copy" data-copy="git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator" aria-label="Copy command">copy</button>
+              <button class="btn-copy" data-copy="git clone https://github.com/daman8271/the-perfect-orchestrator &amp;&amp; cd the-perfect-orchestrator" aria-label="Copy clone command">copy</button>
             </div>
           </li>
           <li>
             <div class="cmd-copy">
               <code>./install.sh &amp;&amp; orch doctor</code>
-              <button class="btn-copy" data-copy="./install.sh &amp;&amp; orch doctor" aria-label="Copy command">copy</button>
+              <button class="btn-copy" data-copy="./install.sh &amp;&amp; orch doctor" aria-label="Copy install and doctor command">copy</button>
             </div>
           </li>
           <li>
             <div class="cmd-copy">
               <code># inside Claude Code:  /orch  — then describe the job</code>
-              <button class="btn-copy" data-copy="/orch" aria-label="Copy command">copy</button>
+              <button class="btn-copy" data-copy="/orch" aria-label="Copy /orch command">copy</button>
             </div>
           </li>
         </ol>
@@ -409,6 +416,10 @@
           <details>
             <summary>What does a fleet cost in tokens?</summary>
             <p>Workers are full Claude Code sessions on your existing plan — no API-key markup, no middleman. A 4-worker audit consumes roughly what 4 interactive sessions would, so size fleets to the work: spin up six workers for a cross-module sweep, not for a one-file fix.</p>
+          </details>
+          <details>
+            <summary>Is verification automatic?</summary>
+            <p>It&rsquo;s step 8 of the lead&rsquo;s protocol, not an optional extra: before reporting, the lead has a <em>different</em> worker try to refute each result, and signs off only on the survivors. The <code>/orch</code> skill bakes the loop in — spawn, brief, monitor, collect, <strong>verify, then report</strong>. A first-class <code>orch verify</code> command (auto-spawned refuters per done-flag) is on the roadmap.</p>
           </details>
           <details>
             <summary>Is it safe to run autonomous workers?</summary>

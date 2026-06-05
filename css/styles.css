@@ -20,7 +20,7 @@
   --red:       #f85149;   /* REFUTED */
   --ink:       #e6edf3;   /* primary text */
   --ink-mute:  #9aa4b2;   /* secondary text */
-  --ink-faint: #58616e;   /* captions, meta */
+  --ink-faint: #78828f;   /* captions, meta — QA: ≥4.5:1 on all three backgrounds (was #58616e @ ~3:1) */
 }
 
 /* non-color system tokens */
@@ -106,7 +106,6 @@ ul, ol { padding-left: 1.2em; }
 
 /* ---- 3. Grain overlay (whole page) ------------------------------------------
    body::after carries it; .grain is the same layer if W1 ships an element. */
-body::after,
 .grain {
   content: "";
   position: fixed;
@@ -457,12 +456,11 @@ code, kbd, pre { font-family: var(--font-mono); }
 .cmd-copy code,
 .cmd-text {
   flex: 1;
-  overflow-x: auto;
-  white-space: nowrap;
+  /* QA: never clip a command — wrap instead (clipping hid 37px of the clone URL) */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   color: var(--ink);
-  scrollbar-width: none;
 }
-.cmd-copy code::-webkit-scrollbar { display: none; }
 .cmd-copy code .p,
 .cmd-text .p { color: var(--green); }   /* leading $ if marked up */
 
@@ -639,6 +637,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .media video,
 .media img {
   width: 100%;
+  aspect-ratio: 16 / 9;    /* QA: zero CLS — poster/video share the box before decode */
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg-raised);
@@ -714,7 +713,7 @@ figcaption {
   font-size: .72rem;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-mute);   /* QA: these captions carry the data — readable tier */
 }
 
 /* cyan mono inline links (landscape survey, read-the-docs) */
@@ -747,8 +746,10 @@ figcaption {
 .cmd-row:hover {
   border-color: var(--line-hot);
   background: rgba(var(--green-rgb), .035);
-  transform: translateX(4px);
 }
+/* descriptions span the full row — 2-col grid with 3 children otherwise
+   auto-places desc into the narrow name column (QA-verified dead space) */
+.cmd-desc { grid-column: 1 / -1; }
 
 .cmd-name {
   font-family: var(--font-mono);
@@ -953,6 +954,40 @@ figcaption {
   color: var(--ink-faint);
 }
 
+/* QA: the global p{max-width:62ch} left-anchors these inside the centered band */
+#vibe .overline,
+#vibe .manifesto-sub { max-width: none; }
+#vibe .overline { text-transform: none; }   /* "$ whoami" is a real command — keep its case */
+
+/* a11y utility — visually hidden, AT-readable */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* pause/play toggle for ambient loops (WCAG 2.2.2) */
+.vid-toggle {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  line-height: 1;
+  color: var(--ink-mute);
+  background: rgba(10,14,20,.72);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .5em .8em;
+  transition: color .2s var(--ease-out), border-color .2s var(--ease-out);
+}
+.vid-toggle:hover { color: var(--ink); border-color: var(--line-hot); }
+figure.media { position: relative; }
+
 /* ---- 18. #start — quickstart ------------------------------------------------------------------------------ */
 .start-list {
   list-style: none;
@@ -978,7 +1013,7 @@ figcaption {
   color: var(--amber);
   opacity: .9;
 }
-#start .link-mono { margin-top: 2rem; display: inline-block; }
+#start .btn-ghost { margin-top: 2rem; }
 
 /* ---- 19. #faq — accordions --------------------------------------------------------------------------------- */
 .accordion {
@@ -1016,6 +1051,7 @@ figcaption {
 .accordion summary::-webkit-details-marker { display: none; }
 .accordion summary::after {
   content: "+";
+  content: "+" / "";   /* alt-text form: visual marker, silent for AT (older engines keep plain "+") */
   position: absolute;
   right: 1.3rem;
   top: 50%;
@@ -1131,7 +1167,7 @@ figcaption {
   .cta-row { flex-direction: column; align-items: stretch; }
   .cta-row .btn { justify-content: center; }
   .cmd-copy { flex-direction: column; align-items: stretch; gap: .7rem; }
-  .cmd-copy code, .cmd-text { white-space: pre-wrap; word-break: break-all; }
+  .cmd-copy code, .cmd-text { white-space: pre-wrap; overflow-wrap: anywhere; }
   .btn-copy, .copy-btn, .cmd-copy [data-copy] { align-self: flex-end; }
 
   .start-list > li { grid-template-columns: 1fr; gap: .4rem; }
