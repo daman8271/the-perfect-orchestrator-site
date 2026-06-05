@@ -819,10 +819,16 @@ figcaption {
 
 #compare th,
 #compare td {
-  padding: .85rem 1.1rem;
+  padding: .85rem .6rem;
   text-align: center;
   border-top: 1px solid var(--line);
   white-space: nowrap;
+}
+/* column headers may wrap — six columns must fit the wrap on desktop */
+#compare thead th {
+  white-space: normal;
+  min-width: 108px;
+  line-height: 1.35;
 }
 #compare th:first-child,
 #compare td:first-child {
