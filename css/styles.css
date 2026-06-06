@@ -1043,7 +1043,18 @@ figcaption {
   font-family: var(--font-mono);
   font-size: .74rem;
   letter-spacing: .04em;
-  color: var(--ink-faint);
+  color: var(--ink-mute);   /* cold-review P7: fine print earns the readable tier */
+}
+
+/* cold-review P5: #verify stacks two 16:9 figures — tighten the slog */
+#verify figure.media { margin-top: 2rem; }
+
+/* cold-review P8: mobile table swipe affordance — right-edge fade */
+@media (max-width: 768px) {
+  .table-wrap {
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 2.2rem), rgba(0,0,0,.25));
+            mask-image: linear-gradient(90deg, #000 calc(100% - 2.2rem), rgba(0,0,0,.25));
+  }
 }
 
 /* ---- 17. #vibe — manifesto band ------------------------------------------------------------------------ */
